@@ -1,0 +1,6 @@
+[core]
+    remote = remote_1
+['remote "remote_storage"']
+    url = /home/shruthi/Shruthi_Tasks/GiTAction
+['remote "remote_1"']
+    url = /home/shruthi/Shruthi_Tasks/GiTAction/dataset/data
