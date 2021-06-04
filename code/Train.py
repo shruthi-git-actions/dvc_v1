@@ -34,8 +34,9 @@ print(resource_url)
 
 with dvc.api.open(
         'train_data.csv',
-        repo='git@github.com:shruthi-git-actions/dvc_v1.git',
-        remote='remote_storage'
+        repo='https://github.com/shruthi-git-actions/dvc_v1.git',
+        remote='remote_storage',
+        rev="experiment"
         ) as fd:
     main_df=csv.reader(fd)
 #url="https://drive.google.com/file/d/1mzsSx_8EPDCLQ77Md4aOg6V9D-769tGP/view?usp=sharing"
