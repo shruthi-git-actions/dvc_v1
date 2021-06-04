@@ -18,23 +18,31 @@ import dask
 from dask_ml.metrics import accuracy_score
 import os, uuid
 import json
+import dvc.api
+import csv
 
 
 # In[ ]:
-url="https://drive.google.com/file/d/1mzsSx_8EPDCLQ77Md4aOg6V9D-769tGP/view?usp=sharing"
-path = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
-main_df = pd.read_csv(path)
+with dvc.api.open(
+        'train_data.csv',
+        repo='git@github.com:shruthi-git-actions/dvc_v1.git',
+        remote='myremote'
+        ) as fd:
+    main_df=csv.reader(fd)
+#url="https://drive.google.com/file/d/1mzsSx_8EPDCLQ77Md4aOg6V9D-769tGP/view?usp=sharing"
+#path = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
+main_df1 = pd.read_csv(main_df)
 #main_test = dd.read_csv('test_data.csv')
-url1="https://drive.google.com/file/d/1Xn8q8UwNgNlpjfMiSxn-vV5TzYjDiYRN/view?usp=sharing"
-path1 = 'https://drive.google.com/uc?export=download&id='+url1.split('/')[-2]
-columns_req = pd.read_csv(path1)
+#url1="https://drive.google.com/file/d/1Xn8q8UwNgNlpjfMiSxn-vV5TzYjDiYRN/view?usp=sharing"
+#path1 = 'https://drive.google.com/uc?export=download&id='+url1.split('/')[-2]
+columns_req = pd.read_csv(data/column_list_new.csv)
 
 
 
 
 # In[ ]:
 
-main_dff = dd.from_pandas(main_df, npartitions=7)
+main_dff = dd.from_pandas(main_df1, npartitions=7)
 df=main_dff[columns_req["Variable_list"]]
 #df_test=main_test[columns_req["Variable_list"]]
 no_columns=len(columns_req.index)
