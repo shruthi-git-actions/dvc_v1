@@ -83,17 +83,19 @@ x=x.categorize()
 
 de = DummyEncoder()
 X_test = de.fit_transform(x)
-
+print("hi")
 
 # In[10]:
 
+#model
 
+clf = dvc.api.read(
+    'HumanEvent_Model.pkl',
+    repo='https://github.com/shruthi-git-actions/dvc_v1.git',
+    mode='rb')
 
-Pkl_Filename = "HumanEvent_Model.pkl"  
-
-with open(Pkl_Filename, 'rb') as file:  
-    clf = pickle.load(file)
-
+#with open(Pkl_Filename, 'rb') as file:  
+#    clf = pickle.load(file)
 
 # In[11]:
 

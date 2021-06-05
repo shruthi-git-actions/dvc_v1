@@ -110,7 +110,7 @@ training=x.merge(pred_train_df)
 
 
 
-training.to_csv("training_new.csv", single_file = True)
+training.to_csv("out/training_new.csv", single_file = True)
 
 
 # In[ ]:

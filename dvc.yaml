@@ -5,7 +5,7 @@ stages:
     - code/Train.py
 
     outs:
-    - HumanEvent_Model.pkl
+      - out
     
 
   Testing:
