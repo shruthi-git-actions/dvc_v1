@@ -26,7 +26,7 @@ from dask import dataframe as dd
 with dvc.api.open(
         'data/test_data.csv',
         repo='https://github.com/shruthi-git-actions/dvc_v1.git',
-        remote='remote_1',
+        remote='remote_storage',
         rev="experiment",
         encoding='utf-8'
         ) as fd2:
@@ -35,7 +35,7 @@ with dvc.api.open(
 with dvc.api.open(
         'data/column_list_new.csv',
         repo='https://github.com/shruthi-git-actions/dvc_v1.git',
-        remote='remote_1',
+        remote='remote_storage',
         rev="experiment",
         encoding='utf-8'
         ) as fd3:
@@ -89,10 +89,14 @@ print("hi")
 
 #model
 
-clf = dvc.api.read(
-    'HumanEvent_Model.pkl',
-    repo='https://github.com/shruthi-git-actions/dvc_v1.git',
-    mode='rb')
+clf = pickle.loads(
+    dvc.api.read(
+        'HumanEvent_Model.pkl',
+        repo='https://github.com/shruthi-git-actions/dvc_v1.git',
+        remote="remote_storage",
+        mode='rb'
+        )
+    )
 
 #with open(Pkl_Filename, 'rb') as file:  
 #    clf = pickle.load(file)

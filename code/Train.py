@@ -27,7 +27,7 @@ import csv
 with dvc.api.open(
         'data/train_data.csv',
         repo='https://github.com/shruthi-git-actions/dvc_v1.git',
-        remote='remote_1',
+        remote='remote_storage',
         rev="experiment",
         encoding='utf-8'
         ) as fd:
@@ -36,7 +36,7 @@ with dvc.api.open(
 with dvc.api.open(
         'data/column_list_new.csv',
         repo='https://github.com/shruthi-git-actions/dvc_v1.git',
-        remote='remote_1',
+        remote='remote_storage',
         rev="experiment",
         encoding='utf-8'
         ) as fd1:
