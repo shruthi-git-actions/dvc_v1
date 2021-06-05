@@ -3,6 +3,7 @@
 
 # In[1]:
 from io import StringIO
+import dvc.api
 import requests
 import aiohttp
 import dask_ml
@@ -18,27 +19,39 @@ import dask
 from dask_ml.metrics import accuracy_score
 import os, uuid
 import json
-
+from dask import dataframe as dd 
 
 # In[3]:
+#input
+with dvc.api.open(
+        'data/test_data.csv',
+        repo='https://github.com/shruthi-git-actions/dvc_v1.git',
+        remote='remote_1',
+        rev="experiment",
+        encoding='utf-8'
+        ) as fd2:
+    main_test=pd.read_csv(fd2)
+#data
+with dvc.api.open(
+        'data/column_list_new.csv',
+        repo='https://github.com/shruthi-git-actions/dvc_v1.git',
+        remote='remote_1',
+        rev="experiment",
+        encoding='utf-8'
+        ) as fd3:
+    columns_req=pd.read_csv(fd3)
 
 
-url_test="https://drive.google.com/file/d/1cd__STfaGNMOT5tKDKkXlLNcRqQypVoZ/view?usp=sharing"
-path_test = 'https://drive.google.com/uc?export=download&id='+url_test.split('/')[-2]
-main_df = pd.read_csv(path_test)
 
-url1="https://drive.google.com/file/d/1Xn8q8UwNgNlpjfMiSxn-vV5TzYjDiYRN/view?usp=sharing"
-path2 = 'https://drive.google.com/uc?export=download&id='+url1.split('/')[-2]
-columns_req = pd.read_csv(path2)
 
-from dask import dataframe as dd 
-main_dff = dd.from_pandas(main_df, npartitions=7)
+
+main_dfff = dd.from_pandas(main_test, npartitions=7)
 
 
 # In[4]:
 
 
-df=main_dff[columns_req["Variable_list"]]
+df=main_dfff[columns_req["Variable_list"]]
 
 
 # In[5]:

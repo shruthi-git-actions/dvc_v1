@@ -1,0 +1,17 @@
+stages:
+  Training:
+    cmd: python code/Train.py 
+    deps:
+    - code/Train.py
+
+    outs:
+    - HumanEvent_Model.pkl
+    
+
+  Testing:
+    cmd: python code/Test.py 
+    deps:
+    - HumanEvent_Model.pkl 
+    - code/Test.py 
+    outs:
+    - out1
