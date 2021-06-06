@@ -20,7 +20,7 @@ from dask_ml.metrics import accuracy_score
 import os, uuid
 import json
 from dask import dataframe as dd 
-
+import io
 # In[3]:
 #input
 with dvc.api.open(
@@ -88,7 +88,10 @@ print("hi")
 # In[10]:
 
 #model
-
+with dvc.api.open("HumanEvent_Model.pkl", mode="rb") as f:
+  stream = io.BytesIO(f.read())
+clf = pickle.load(stream)
+'''
 clf = pickle.loads(
     dvc.api.read(
         'HumanEvent_Model.pkl',
@@ -97,10 +100,12 @@ clf = pickle.loads(
         mode='rb'
         )
     )
-
-#with open(Pkl_Filename, 'rb') as file:  
-#    clf = pickle.load(file)
-
+'''
+'''
+Pkl_Filename = "HumanEvent_Model.pkl"
+with open(Pkl_Filename, 'rb') as file:
+    clf = pickle.load(file)
+'''
 # In[11]:
 
 
@@ -136,6 +141,6 @@ prediction=x.merge(pred_test_df)
 
 
 prediction.to_csv("out1/prediction_new.csv", single_file = True)
-
+print ("done")
 
 
