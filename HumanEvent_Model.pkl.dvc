@@ -1,0 +1,4 @@
+outs:
+- md5: 1cd1d9a86f47327a2ded42e3c2b9518b
+  size: 216738
+  path: HumanEvent_Model.pkl

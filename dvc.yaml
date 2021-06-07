@@ -1,0 +1,18 @@
+stages:
+  Training:
+    cmd: python code/Train.py 
+    deps:
+    - code/Train.py
+
+    outs:
+      - out
+      
+
+    
+
+  Testing:
+    cmd: python code/Test.py 
+    deps:
+    - code/Test.py 
+    outs:
+    - out1
