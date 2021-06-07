@@ -22,6 +22,7 @@ import dvc.api
 import csv
 
 
+
 # In[ ]:
 #input
 with dvc.api.open(
@@ -76,7 +77,7 @@ X_train = de.fit_transform(x)
 
 client = Client(processes=False)             # create local cluster
 
-clf = RandomForestClassifier(n_estimators=200, n_jobs=-1)
+clf = RandomForestClassifier(n_estimators=100, n_jobs=-1)
 with joblib.parallel_backend("dask", scatter=[X_train, y_train]):
  clf.fit(X_train, y_train)
 
