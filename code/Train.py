@@ -18,22 +18,32 @@ import dask
 from dask_ml.metrics import accuracy_score
 import os, uuid
 import json
-
-
-# In[ ]:
-url="https://drive.google.com/file/d/1mzsSx_8EPDCLQ77Md4aOg6V9D-769tGP/view?usp=sharing"
-path = 'https://drive.google.com/uc?export=download&id='+url.split('/')[-2]
-main_df = pd.read_csv(path)
-#main_test = dd.read_csv('test_data.csv')
-url1="https://drive.google.com/file/d/1Xn8q8UwNgNlpjfMiSxn-vV5TzYjDiYRN/view?usp=sharing"
-path1 = 'https://drive.google.com/uc?export=download&id='+url1.split('/')[-2]
-columns_req = pd.read_csv(path1)
-
+import dvc.api
+import csv
 
 
 
 # In[ ]:
+#input
+with dvc.api.open(
+        'data/train_data.csv',
+        repo='https://github.com/shruthi-git-actions/dvc_v1.git',
+        remote='remote_storage',
+        rev="experiment",
+        encoding='utf-8'
+        ) as fd:
+    main_df=pd.read_csv(fd)
+#data
+with dvc.api.open(
+        'data/column_list_new.csv',
+        repo='https://github.com/shruthi-git-actions/dvc_v1.git',
+        remote='remote_storage',
+        rev="experiment",
+        encoding='utf-8'
+        ) as fd1:
+    columns_req=pd.read_csv(fd1)
 
+#Training
 main_dff = dd.from_pandas(main_df, npartitions=7)
 df=main_dff[columns_req["Variable_list"]]
 #df_test=main_test[columns_req["Variable_list"]]
@@ -67,7 +77,7 @@ X_train = de.fit_transform(x)
 
 client = Client(processes=False)             # create local cluster
 
-clf = RandomForestClassifier(n_estimators=200, n_jobs=-1)
+clf = RandomForestClassifier(n_estimators=100, n_jobs=-1)
 with joblib.parallel_backend("dask", scatter=[X_train, y_train]):
  clf.fit(X_train, y_train)
 
@@ -109,6 +119,7 @@ train_score=accuracy_score(np.array(y_train),np.array(pred_train))
 
 print(train_score)
 print ("the end ")
+ 
 
 
 
